@@ -10,6 +10,7 @@ module Parse2016
   FIRST_DATA_INDEX = 11
   LAST_DATA_INDEX = -3
   SUBTOTALS_LABEL = "County Totals:"
+  RETURNS_NUM_COLUMNS = 19
 
   def load_csv
     CSV.read PATH
@@ -134,13 +135,31 @@ module Parse2016
     obj
   end
 
-  def loadhash_by_county_city
-    # TODO add all wards, currently just arbitrary one wins.
-    # TODO ie, group_by the key, then merge results, while preserving a ward hash.
-    # TODO add check of totals from this hash
-    Hash[filtered_and_fixed
+  def by_county_city
+    filtered_and_fixed
       .map { |row| transform row }
-      .map { |obj| [obj[:county_city_key], obj] }]
+      .group_by { |hsh| hsh[:county_city_key] }
+  end
+
+  def reduce_wards(hash_per_ward)
+    blank_county_level = {
+        ward_returns: {},
+        returns: Array.new(RETURNS_NUM_COLUMNS,0),
+      }.merge!(hash_per_ward.first)
+    blank_county_level.delete(:ward)
+    blank_county_level.delete(:raw)
+    hash_per_ward.reduce(blank_county_level) do |combined, ward_hash|
+        ward_returns = ward_hash[:raw][2..-1]
+        combined[:ward_returns][ward_hash[:ward]] = ward_returns
+        # peicewise add in the returns of the new ward.
+        combined[:returns] = combined[:returns].zip(ward_returns).map { |a, b| a + b }
+        combined
+    end
+  end
+
+  def loadhash_by_county_city
+    # TODO add check of totals from this hash
+    Hash[ by_county_city.map { |key, ward_results| [key, reduce_wards(ward_results)] } ]
   end
 
 end
