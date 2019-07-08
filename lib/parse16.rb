@@ -96,4 +96,55 @@ module Parse2016
   def etl_ok?
     etl_check.last.map { |x| x * x }.reduce(&:+) == 0
   end
+
+  CITY_WARD_RE = /^((?:CITY|TOWN|VILLAGE) OF (?:[\w \.-]+)) (Ward(?:s)? (?:[0-9,-ABCS]+))$/i
+
+  def extract_city_and_ward(row)
+    m = CITY_WARD_RE.match(row[1])
+    {
+      city: m[1].upcase.strip,
+      ward: m[2]
+    }
+  end
+
+  def extract_county(row)
+    row[0].upcase.strip
+  end
+
+  def unique_counties
+    filtered_and_fixed
+      .map { |row| extract_county row }
+      .sort
+      .uniq
+  end
+
+  def unique_cities
+    filtered_and_fixed
+      .map { |row| extract_city_and_ward(row) }
+      .map { |extracted| extracted[:city].upcase }
+      .sort
+      .uniq
+  end
+
+  def transform(row)
+    obj = extract_city_and_ward row
+    obj[:county] = extract_county row
+    obj[:county_city_key] = "#{obj[:county]}___#{obj[:city]}"
+    obj[:raw] = row
+    obj
+  end
+
+  def loadhash_by_county_city
+    # TODO add all wards, currently just arbitrary one wins.
+    # TODO ie, group_by the key, then merge results, while preserving a ward hash.
+    # TODO add check of totals from this hash
+    Hash[filtered_and_fixed
+      .map { |row| transform row }
+      .map { |obj| [obj[:county_city_key], obj] }]
+  end
+
+end
+
+class ResultsParser2016
+  extend Parse2016
 end
