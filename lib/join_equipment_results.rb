@@ -23,7 +23,7 @@ module JoinEquipmentResultHelpers
   end
 
   def join_fails_sorted
-    join_fails.map { |obj| [obj[:raw][2], obj] }.sort.map { |_, obj| obj }
+    join_fails.map { |x| [x[:returns][0], x[:county], x[:city]] }.sort
   end
 end
 
