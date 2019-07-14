@@ -124,6 +124,134 @@ module ErrataData
     ["GREEN___VILLAGE OF BELLEVILLE", "DANE___VILLAGE OF BELLEVILLE"],
 
 
+    # [252, "GREEN", "VILLAGE OF BROOKLYN"]]
+    # DANE COUNTY - 13 VILLAGE OF BROOKLYN - MAIN - 13109 ES&S DS200 ES&S Automark
+    # GREEN COUNTY - 23 TOWN OF BROOKLYN - 23006 Dominion ImageCast Evolution Dominion ImageCast Evolution
+    # https://en.wikipedia.org/wiki/Brooklyn_(village),_Wisconsin
+    #   Brooklyn is a village in Dane and Green Counties in the U.S. state of Wisconsin. At the 2000 census, 502 Brooklyn residents lived in Dane County and 414 in Green County, with a total population of 916. The 2010 census population was 1,401 inhabitants, with 936 of these in Dane County and 465 in Green County.
+    # https://en.wikipedia.org/wiki/Brooklyn,_Green_County,_Wisconsin
+    #   Brooklyn is a town in Green County, Wisconsin, United States. The population was 1,083 at the 2010 census. The unincorporated community of Attica is located in the town. Section one of the Town of Brooklyn contains the portion of the village of Brooklyn that lies in Green County.
+    #
+    # since wikipedia tells us the Green county part of the village of Brooklyn is
+    # located within the town of Brooklyn in Green county, we'll map it that way,
+    # assuming they use the same Dominion equipment as the rest of the town.
+    #
+    ["GREEN___VILLAGE OF BROOKLYN", "GREEN COUNTY___TOWN OF BROOKLYN"],
+
+
+    #  [239, "COLUMBIA", "VILLAGE OF RANDOLPH"]]
+    # https://en.wikipedia.org/wiki/Randolph_(town),_Wisconsin
+    #   Randolph is a town in Columbia County, Wisconsin, United States. The population was 699 at the 2000 census. The Village of Randolph lies to the southeast of the town and only a tiny portion of the village is within the town.
+    #
+    # https://en.wikipedia.org/wiki/Randolph,_Wisconsin
+    #   Randolph is a village in Columbia and Dodge Counties in the U.S. state of Wisconsin. The population was 1,811 at the 2010 census. Of this, 1,339 were in Dodge County, and 472 were in Columbia County. The village is located at the southeast corner of the Town of Randolph in Columbia County, although only a tiny portion of the village lies within the town. Most of the village lies within the Town of Westford in Dodge County. Small portions also lie within the Town of Fox Lake (also in Dodge County) to the north and the Town of Courtland in Columbia County.
+    #
+    # all of columbia county uses the ES&S DS200 as the scanner/tabulator.
+    #
+    # except for two municipalities with ES&S Express Vote all of columbia county
+    # uses the ES&S Automark, eg:
+    # COLUMBIA COUNTY - 11 TOWN OF RANDOLPH - 11034 ES&S DS200 ES&S Automark
+    # therefore:
+    ["COLUMBIA___VILLAGE OF RANDOLPH", "COLUMBIA___TOWN OF RANDOLPH"],
+
+    # [235, "MARATHON", "CITY OF COLBY"]]
+    # https://en.wikipedia.org/wiki/Colby,_Wisconsin
+    #   Colby is a city in Clark and Marathon counties in the U.S. state of Wisconsin. It is part of the Wausau, Wisconsin Metropolitan Statistical Area. The population was 1,852 at the 2010 census.[6] Of this, 1,354 were in Clark County, and 498 were in Marathon County. The city is bordered by the Town of Colby, the Town of Hull, and the City of Abbotsford.
+    # MARATHON COUNTY - 37	CITY OF MOSINEE - 37251	ES&S DS200	ES&S Automark
+    ["MARATHON___CITY OF COLBY", "MARATHON___CITY OF MOSINEE"],
+
+    # [148, "MARATHON", "CITY OF ABBOTSFORD"]]
+    # https://en.wikipedia.org/wiki/Abbotsford,_Wisconsin
+    #   Abbotsford is a city in Clark (mostly) and Marathon counties in the U.S. state of Wisconsin. The population was 2,310 at the 2010 census.[6] Of this, 1,616 were in Clark County, and 694 were in Marathon County.
+    ["MARATHON___CITY OF ABBOTSFORD", "MARATHON___CITY OF MOSINEE"],
+
+    # https://en.wikipedia.org/wiki/Dorchester,_Wisconsin
+    # Dorchester is a village in Clark and Marathon counties in the U.S. state of Wisconsin, along the 45th parallel. It is part of the Wausau, Wisconsin Metropolitan Statistical Area. The population was 876 at the 2010 census.[6] Of this, 871 were in Clark County, and only 5 were in Marathon County.
+    ["MARATHON___VILLAGE OF DORCHESTER", "MARATHON___CITY OF MOSINEE"],
+
+    # https://en.wikipedia.org/wiki/Birnamwood,_Wisconsin
+    # Birnamwood is a village in Marathon and Shawano counties in the U.S. state of Wisconsin. It is part of the Wausau, Wisconsin Metropolitan Statistical Area. The population was 818 at the 2010 census.[6] Of this, 802 were in Shawano County, and 16 were in Marathon County. The village is located mostly within the town of Birnamwood in Shawano County; only a small portion extends into the town of Norrie in adjacent Marathon County.
+    ["MARATHON___VILLAGE OF BIRNAMWOOD", "MARATHON___CITY OF MOSINEE"],
+
+    # [136, "CALUMET", "CITY OF KIEL"]]
+    # https://en.wikipedia.org/wiki/Kiel,_Wisconsin
+    #   Kiel is a city in Calumet and Manitowoc counties in the U.S. state of Wisconsin. The population was 3,738 at the 2010 census. Of this, 3,429 residents lived in Manitowoc County, and 309 residents lived in Calumet County. The city is located primarily within Manitowoc County, though a portion extends west into adjacent Calumet County and is known as "Hinzeville".[6]
+    # Calumet municipalities all use Dominion, eg:
+    # CALUMET COUNTY - 08 CITY OF BRILLION - 08206 Dominion (Premier)-Accuvote-OS Dominion (Premier)-Accuvote TSX
+    # except for one that also uses some ES&S:
+    # CALUMET COUNTY - 08 VILLAGE OF HARRISON - MAIN - 08131 Dominion (Premier)-Accuvote-OS/ES&S DS200 Dominion (Premier)-Accuvote TSX/ES&S ExpressVote
+    #
+    ["CALUMET___CITY OF KIEL", "CALUMET___CITY OF BRILLION"],
+
+    # [124, "LAFAYETTE", "CITY OF CUBA CITY"]]
+    # https://en.wikipedia.org/wiki/Cuba_City,_Wisconsin
+    #   Cuba City is a city in Grant and partly in Lafayette counties in the U.S. state of Wisconsin. The population was 2,086 at the 2010 census. Of this, 1,877 were in Grant County, and 209 were in Lafayette County.
+    #
+    # All of Layayette except for the City of Darlington uses Dominion DRE as follows:
+    #   LAFAYETTE COUNTY - 33 CITY OF SHULLSBURG - 33281 None  Dominion (Sequoia)/Command Central-Edge
+    ["LAFAYETTE___CITY OF CUBA CITY", "LAFAYETTE___CITY OF SHULLSBURG"],
+
+    # [10, "LAFAYETTE", "VILLAGE OF HAZEL GREEN"],
+    # https://en.wikipedia.org/wiki/Hazel_Green,_Wisconsin
+    #   Hazel Green is a village in Grant and Lafayette counties in the U.S. state of Wisconsin. The population was 1,256 at the 2010 census. Of this, 1,243 were in Grant County, and only 13 were in Lafayette County. The village is located mostly within the Town of Hazel Green in Grant County; only a small portion extends into the Town of Benton in Lafayette County.
+    #   LAFAYETTE COUNTY - 33 TOWN OF BENTON - 33006 None  Dominion (Sequoia)/Command Central-Edge
+    ["LAFAYETTE___VILLAGE OF HAZEL GREEN", "LAFAYETTE___TOWN OF BENTON"],
+
+
+
+    #  [117, "OUTAGAMIE", "VILLAGE OF WRIGHTSTOWN"]]
+    # https://en.wikipedia.org/wiki/Wrightstown,_Wisconsin
+    #   Wrightstown is a village in Brown and Outagamie counties in the U.S. state of Wisconsin. The population was 2,827 at the 2010 census. Of this, 2,676 were in Brown County, and 151 were in Outagamie County. The village is surrounded mostly by the westernmost part of the Town of Wrightstown in Brown County.
+    # all of outgamie county is listed as using the same ES&S configuration, eg:
+    #  OUTAGAMIE COUNTY - 45 VILLAGE OF SHIOCTON - 45181 ES&S DS200 ES&S ExpressVote
+    ["OUTAGAMIE___VILLAGE OF WRIGHTSTOWN", "OUTAGAMIE___VILLAGE OF SHIOCTON"],
+
+
+
+
+    # [99, "WALWORTH", "VILLAGE OF MUKWONAGO"]]
+    # https://en.wikipedia.org/wiki/Mukwonago,_Wisconsin
+    # Mukwonago /mʌˈkwɒnəɡoʊ/ is a village in the U.S. state of Wisconsin. The population was 7,355 at the 2010 census. The village is located mostly within the Town of Mukwonago in Waukesha County, with a small portion extending into the Town of East Troy in Walworth County. Of its population, 7,254 were in Waukesha County, and 101 were in Walworth County.
+    # all of Walworth county has the same equipment:
+    # WALWORTH COUNTY - 65 CITY OF DELAVAN - 65216 Dominion ImageCast Evolution Dominion ImageCast Evolution
+    # so...
+    ["WALWORTH___VILLAGE OF MUKWONAGO", "WALWORTH___CITY OF DELAVAN"],
+
+
+    # [1, "WALWORTH", "CITY OF BURLINGTON"],
+    # https://en.wikipedia.org/wiki/Burlington,_Wisconsin
+    # Burlington is a city in Racine and Walworth counties in the U.S. state of Wisconsin,[4] with the majority of the city located in Racine County.[5] The population of the portion of the city inside Racine County was 10,464 as of the 2010 census.
+    ["WALWORTH___CITY OF BURLINGTON", "WALWORTH___CITY OF DELAVAN"],
+
+
+    # [99, "VERNON", "VILLAGE OF VIOLA"],
+    # https://en.wikipedia.org/wiki/Viola,_Wisconsin
+    #   Viola is a village in Richland (mostly) and Vernon Counties in the U.S. state of Wisconsin, United States. The population was 699 at the 2010 census. Of this, 477 were in Richland County, and 222 were in Vernon County.
+    # RICHLAND COUNTY - 53 VILLAGE OF VIOLA - MAIN - 53186 None  Dominion (Sequoia)/Command Central-Edge
+    # but probably more relevant is the fact that all of Vernon county except for the
+    # City of Viroqua uses the exact same Dominion config, eg:
+    # VERNON COUNTY - 63 VILLAGE OF STODDARD - 63181 None  Dominion (Sequoia)/Command Central-Edge
+    ["VERNON___VILLAGE OF VIOLA", "VERNON___VILLAGE OF STODDARD"],
+
+    # [89, "SAUK", "CITY OF WISCONSIN DELLS"]
+    # https://en.wikipedia.org/wiki/Wisconsin_Dells,_Wisconsin
+    #   Wisconsin Dells is a city in south-central Wisconsin, with a population of 2,678 people as of the 2010 census.[8] It straddles four counties: Adams, Columbia, Juneau, and Sauk.
+    #   ...
+    #   Of the 2010 total population of 2,678, the population by county was:
+    #     Adams County: 61
+    #     Columbia County: 2,440
+    #     Juneau County: 2
+    #     Sauk County: 175
+    #
+    # all of Sauk county uses the same configuration:
+    #  SAUK COUNTY - 57 CITY OF BARABOO - 57206 ES&S DS200 ES&S ExpressVote
+    # so:
+    ["SAUK___CITY OF WISCONSIN DELLS", "SAUK___CITY OF BARABOO"],
+
+    # [7, "SAUK", "VILLAGE OF CAZENOVIA"],
+    # https://en.wikipedia.org/wiki/Cazenovia,_Wisconsin
+    #   Cazenovia is a village in Richland and Sauk Counties in the U.S. state of Wisconsin. The population was 318 at the 2010 census. Of this, 314 were in Richland County, and only 4 were in Sauk County.
+    ["SAUK___VILLAGE OF CAZENOVIA", "SAUK___CITY OF BARABOO"],
   ]
 
 end
