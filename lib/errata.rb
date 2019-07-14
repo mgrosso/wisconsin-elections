@@ -43,7 +43,7 @@ module ErrataData
     # MARATHON COUNTY - 37 TOWN OF MAINE - 37052 ES&S DS200 ES&S Automark
     # since there is also this:
     # OUTAGAMIE COUNTY - 45 TOWN OF MAINE - 45030 ES&S DS200 ES&S ExpressVote
-    # I'm assuming 
+    # I'm assuming
     # MARATHON COUNTY - 37 TOWN OF MAINE  meant VILLAGE OF MAIN
     ["MARATHON___VILLAGE OF MAINE", "MARATHON___TOWN OF MAINE"],
 
@@ -259,6 +259,6 @@ end
 class Errata
   extend ErrataData
   def self.join_fixes
-    ErrataData::JOIN_FIXES 
+    ErrataData::JOIN_FIXES
   end
 end
