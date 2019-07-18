@@ -3,7 +3,7 @@
 # TODO: do we need to specially account for Douglas county rename in 2018?
 module ErrataData
 
-  JOIN_FIXES = [
+  EQUIPMENT_JOIN_FIXES = [
     # see https://en.wikipedia.org/wiki/Windsor,_Wisconsin
     # it went from TOWN to VILLAGE in 2015, but not every spreadsheet was
     # updated at the same time, it would seem.
@@ -45,6 +45,9 @@ module ErrataData
     # OUTAGAMIE COUNTY - 45 TOWN OF MAINE - 45030 ES&S DS200 ES&S ExpressVote
     # I'm assuming
     # MARATHON COUNTY - 37 TOWN OF MAINE  meant VILLAGE OF MAIN
+    #
+    # NOTE: yes, see 2016 to 2012 join errata below, found newspaper article
+    # documenting the switch.
     ["MARATHON___VILLAGE OF MAINE", "MARATHON___TOWN OF MAINE"],
 
     # "JEFFERSON___CITY OF WHITEWATER"
@@ -254,11 +257,50 @@ module ErrataData
     ["SAUK___VILLAGE OF CAZENOVIA", "SAUK___CITY OF BARABOO"],
   ]
 
+  FROM_2016_TO_2012 = [
+    # https://en.wikipedia.org/wiki/Harrison_(village),_Wisconsin
+    #   Harrison is a village in Calumet and Outagamie Counties,[4] Wisconsin, United States.[3] The village was created on March 8, 2013, from unincorporated areas of the Town of Harrison[5] and a portion of the Town of Buchanan: the right of way along County Trunk Highway KK in Outagamie County.[6] The village is located in what was the northwestern part of the town of Harrison and borders Appleton and Menasha. It has a population of 11,532
+    # https://en.wikipedia.org/wiki/Harrison_(town),_Calumet_County,_Wisconsin
+    #   Harrison is a village in Calumet County in the U.S. state of Wisconsin. The population was 10,839 at the 2010 census and 3,471 in 2013.[3] The Village of Harrison and Town of Buchanan are collectively known locally as Darboy.
+    #   On March 8, 2013, the village of Harrison was created from the northwest part of the town.
+    ["CALUMET___TOWN OF HARRISON", "CALUMET___VILLAGE OF HARRISON"],
+
+    # https://en.wikipedia.org/wiki/Windsor,_Wisconsin
+    #   Windsor is a village and former town in Dane County, Wisconsin, United States. The population was 5,286 at the 2000 census. The communities of Lake Windsor, Morrisonville, and Token Creek are located within the village. Windsor voted to incorporate as a village on November 3, 2015; prior to its incorporation, it was a town,
+    ["DANE___VILLAGE OF WINDSOR", "DANE___TOWN OF WINDSOR"],
+
+    # https://en.wikipedia.org/wiki/Somers,_Wisconsin
+    #   Somers is a village[6] in Kenosha County, Wisconsin, United States. The population was 9,597 at the 2010 census, at which time the village was still a town. ...  The village of Somers was incorporated on April 24, 2015, following a local election that favored incorporation.
+    ["KENOSHA___VILLAGE OF SOMERS", "KENOSHA___TOWN OF SOMERS"],
+
+
+    # https://www.wausaudailyherald.com/story/news/2015/12/09/town-maine-votes-become-village/77029048/
+    #   Nora G. Hertel, USA TODAY NETWORK-WisconsinPublished 8:45 a.m. CT Dec. 9, 2015 | Updated 12:18 p.m. CT Dec. 9, 2015
+    #   TOWN OF MAINE - A large majority of voters decided Tuesday that the town of Maine will soon become a village.
+    #   Eighty-three percent of voting residents said yes to a referendum on turning the town into a village. The decision is part of a plan to help Maine absorb the indebted village of Brokaw with support from another neighbor, the town of Texas.
+    ["MARATHON___VILLAGE OF MAINE", "MARATHON___TOWN OF MAINE"],
+
+    # "MONROE___VILLAGE OF ONTARIO" had zero votes in 16, TOWN OF is nil in both
+    # "MONROE___VILLAGE OF ROCKLAND" had zero votes in 16, nil in 12
+    # "OUTAGAMIE___VILLAGE OF HARRISON" had zero votes in 16, nil in 12
+    #
+    # "WINNEBAGO___VILLAGE OF FOX CROSSING"
+    # https://en.wikipedia.org/wiki/Fox_Crossing,_Wisconsin
+    #   Fox Crossing is a village in Winnebago County, Wisconsin, United States. It was incorporated from the former Town of Menasha in 2016.[3][4] The estimated population in 2018 was 19,029.[5]
+    # so when comparing 2012 to 16, 2012 town of Menasha should correspond to
+    # the combination of 2016 town of Menasha and village of fox crossing.
+    ["WINNEBAGO___VILLAGE OF FOX CROSSING", "WINNEBAGO___TOWN OF MENASHA"],
+
+  ]
 end
 
 class Errata
   extend ErrataData
-  def self.join_fixes
-    ErrataData::JOIN_FIXES
+  def self.equipment_join_fixes
+    ErrataData::EQUIPMENT_JOIN_FIXES
+  end
+
+  def self.from_2016_to_2012
+    ErrataData::FROM_2016_TO_2012
   end
 end
