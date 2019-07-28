@@ -19,13 +19,15 @@ module JoinEquipmentResultHelpers
   end
 
   def join_2012_to_2016
-    r16 = equipment_join_2016
-    r12 = equipment_join_2012
+    hr16 = Hash[equipment_join_2016.map { |x| [x[:county_city_key], x] }]
+    hr12 = Hash[equipment_join_2012.map { |x| [x[:county_city_key], x] }]
     fix_keys = Hash[Errata.from_2016_to_2012]
-    rjoined = r16.map do |key, obj|
-      ret = obj.dup
-      ret[:prev] = (r12[key] || r12[fix_keys[key]]) rescue binding.pry
-      [key, ret]
+    rjoined = hr16
+      .reject { |key, obj| obj[:returns][0] == 0 }
+      .map do |key, obj|
+        ret = obj.dup
+        ret[:prev] = (hr12[key] || hr12[fix_keys[key]]) rescue binding.pry
+        [key, ret]
     end
     Hash[rjoined]
   end
