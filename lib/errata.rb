@@ -263,7 +263,7 @@ module ErrataData
     # https://en.wikipedia.org/wiki/Harrison_(town),_Calumet_County,_Wisconsin
     #   Harrison is a village in Calumet County in the U.S. state of Wisconsin. The population was 10,839 at the 2010 census and 3,471 in 2013.[3] The Village of Harrison and Town of Buchanan are collectively known locally as Darboy.
     #   On March 8, 2013, the village of Harrison was created from the northwest part of the town.
-    ["CALUMET___TOWN OF HARRISON", "CALUMET___VILLAGE OF HARRISON"],
+    ["CALUMET___VILLAGE OF HARRISON", "CALUMET___TOWN OF HARRISON"],
 
     # https://en.wikipedia.org/wiki/Windsor,_Wisconsin
     #   Windsor is a village and former town in Dane County, Wisconsin, United States. The population was 5,286 at the 2000 census. The communities of Lake Windsor, Morrisonville, and Token Creek are located within the village. Windsor voted to incorporate as a village on November 3, 2015; prior to its incorporation, it was a town,
