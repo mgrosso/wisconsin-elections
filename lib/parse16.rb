@@ -11,10 +11,12 @@ module Parse2016
   LAST_DATA_INDEX = -3
   SUBTOTALS_LABEL = "County Totals:"
   RETURNS_NUM_COLUMNS = 19
+  CITY_WARD_RE = /^((?:CITY|TOWN|VILLAGE) OF (?:[\w \.-]+)) (Ward(?:s)? (?:[0-9,-ABCS]+))$/i
+  FIELD_SUFFIX = "16"
 
-  def load_csv
-    CSV.read PATH
-  end
+  constants
+    .map { |c| [c, c.to_s.downcase] }
+    .each { |c, s| define_method(s) { Parse2016.const_get c } }
 
   def extract_column_names(csv)
     columns = csv[9].dup
@@ -27,143 +29,18 @@ module Parse2016
     columns
   end
 
-  def select_data_rows(csv)
-    from = FIRST_DATA_INDEX
-    to = csv.size + LAST_DATA_INDEX
-    csv[from..to]
-  end
-
-  def skip_subtotals(csv)
-    csv
-      .reject { |row| row[1] == "County Totals:" }
-      .reject { |row| row[1] == "Office Totals:" }
-  end
-
-  def fixed_city_column(csv)
-    cities = csv.map(&:first)
-    (0..cities.size - 1)
-      .to_a
-      .map { |i| cities[i] = cities[i] ? cities[i] :  cities[i-1] }
-  end
-
-  def fix_city_column(csv)
-    # the first column holds the city name. only the first row of a county
-    # is populated because the xlsx stretched that val down over the additional
-    # ward rows, and the missing cells were replaced with nil by csv export.
-    fixed_column = fixed_city_column csv
-    csv
-      .each_with_index
-      .map { |row, index|  row[1..-1].prepend fixed_column[index] }
-  end
-
-  # we want "2,345" to equal 2345, not 2.
-  def paranoid_to_i(numeric)
-    numeric.to_s.tr(',','').to_i
-  end
-
-  def fix_numbers(csv)
-    csv.map do |row|
-      suffix = row[2..-1].map { |num| paranoid_to_i num }
-      [
-        row[0],
-        row[1],
-      ] + suffix
-    end
-  end
-
-  def filtered_and_fixed
-    fix_numbers fix_city_column skip_subtotals select_data_rows load_csv
-  end
-
-  # expects that 2..-1 of each row have replaced x by paranoid_to_i(x)
-  def add_numerics(csv)
-    (2..(csv.first.size - 1))
-      .map { |col| csv.map { |row| row[col] }.reduce(&:+) }
-  end
-
-  def etl_check
-    # entering territory where R would do much better.
-    calculated_totals = add_numerics filtered_and_fixed
-    last_row_totals = load_csv[-1][2..-1].map { |x| paranoid_to_i x }
-    deltas = (0..(calculated_totals.size - 1))
-      .map { |col| calculated_totals[col] - last_row_totals[col] }
-    [
-      calculated_totals,
-      last_row_totals,
-      deltas
-    ]
-  end
-
-  def etl_ok?
-    etl_check.last.map { |x| x * x }.reduce(&:+) == 0
-  end
-
-  CITY_WARD_RE = /^((?:CITY|TOWN|VILLAGE) OF (?:[\w \.-]+)) (Ward(?:s)? (?:[0-9,-ABCS]+))$/i
-
   def extract_city_and_ward(row)
-    m = CITY_WARD_RE.match(row[1])
+    m = city_ward_re.match(row[1])
     {
       city: m[1].upcase.strip,
       ward: m[2]
     }
   end
 
-  def extract_county(row)
-    row[0].upcase.strip
-  end
-
-  def unique_counties
-    filtered_and_fixed
-      .map { |row| extract_county row }
-      .sort
-      .uniq
-  end
-
-  def unique_cities
-    filtered_and_fixed
-      .map { |row| extract_city_and_ward(row) }
-      .map { |extracted| extracted[:city].upcase }
-      .sort
-      .uniq
-  end
-
-  def transform(row)
-    obj = extract_city_and_ward row
-    obj[:county] = extract_county row
-    obj[:county_city_key] = "#{obj[:county]}___#{obj[:city]}"
-    obj[:raw] = row
-    obj
-  end
-
-  def by_county_city
-    filtered_and_fixed
-      .map { |row| transform row }
-      .group_by { |hsh| hsh[:county_city_key] }
-  end
-
-  def reduce_wards(hash_per_ward)
-    blank_county_level = {
-        ward_returns: {},
-        returns: Array.new(RETURNS_NUM_COLUMNS,0),
-      }.merge!(hash_per_ward.first)
-    blank_county_level.delete(:ward)
-    blank_county_level.delete(:raw)
-    hash_per_ward.reduce(blank_county_level) do |combined, ward_hash|
-        ward_returns = ward_hash[:raw][2..-1]
-        combined[:ward_returns][ward_hash[:ward]] = ward_returns
-        # peicewise add in the returns of the new ward.
-        combined[:returns] = combined[:returns].zip(ward_returns).map { |a, b| a + b }
-        combined
-    end
-  end
-
-  def loadhash_by_county_city
-    # TODO add check of totals from this hash
-    Hash[ by_county_city.map { |key, ward_results| [key, reduce_wards(ward_results)] } ]
-  end
-
 end
 
 class ResultsParser2016
+  extend ParseShared
+  extend EtlChecks
   extend Parse2016
 end
