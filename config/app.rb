@@ -4,6 +4,7 @@ def reload!
   load 'lib/etl_checks.rb'
   load 'lib/parse16.rb'
   load 'lib/parse12.rb'
-  load 'lib/join_equipment_results.rb'
   load 'lib/errata.rb'
+  load 'lib/join_equipment_results.rb'
+  load 'lib/export_csv.rb'
 end
