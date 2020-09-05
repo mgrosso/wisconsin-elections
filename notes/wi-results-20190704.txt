@@ -1,0 +1,25 @@
+
+## ----------------------------------------------------------------------
+## ----------------------------------------------------------------------
+##
+## File:      notes/wi-results-20190704.txt
+## Author:    mgrosso 
+## Created:   Thu 04 Jul 2019 07:00:07 PM PDT on iapetus
+## Copyright:   Copyright  
+## Project:   
+## Purpose:   
+## 
+## $Id$
+## ----------------------------------------------------------------------
+## ----------------------------------------------------------------------
+
+https://elections.wi.gov/elections-voting/results/2012/fall-general
+https://elections.wi.gov/elections-voting/results/2016/partisan-primary
+https://elections.wi.gov/elections-voting/results/2016/fall-general
+
+
+
+
+
+
+

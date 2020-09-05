@@ -1,0 +1,29 @@
+
+## ----------------------------------------------------------------------
+## ----------------------------------------------------------------------
+##
+## File:      notes/steps-20190705.txt
+## Author:    mgrosso 
+## Created:   Fri 05 Jul 2019 01:13:04 PM PDT on iapetus
+## Copyright:   Copyright  
+## Project:   
+## Purpose:   
+## 
+## $Id$
+## ----------------------------------------------------------------------
+## ----------------------------------------------------------------------
+
+0- downloads
+  0a- equipment
+    - https://elections.wi.gov/elections-voting/voting-equipment/voting-equipment-use
+    - WI-Voting-Equipment-List-by-Municipality-August-2018.xlsx
+    - https://elections.wi.gov/sites/electionsuat.wi.gov/files/2019-03/WI%20Voting%20Equipment%20List%20by%20Municipality%20August%202018.xlsx
+  0b- results
+
+1- export equipment to csv-inputs/WI-Voting-Equipment-List-by-Municipality-August-2018.csv
+
+
+
+
+
+
