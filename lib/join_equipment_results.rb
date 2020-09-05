@@ -13,17 +13,26 @@ module JoinEquipmentResultHelpers
     alt_equipments = find_missing_equipment equipments
     results.each_pair.map do |key, result_obj|
       ret = result_obj.dup
-      ret[:equipment] = equipments[key] || alt_equipments[key]
+      ret[:equipment] = equipments[key]
+      if !ret[:equipment] && alt_equipments[key]
+        ret[:equipment] =  equipments[alt_equipments[key]]
+      end
       ret
     end
   end
+
+  def filter_joined(joined_by_county_city)
+    joined_by_county_city
+      .reject { |key, obj| obj[:returns][0] == 0 }
+      .reject { |key, obj| obj[:equipment].nil? }
+  end
+
 
   def join_2012_to_2016
     hr16 = Hash[equipment_join_2016.map { |x| [x[:county_city_key], x] }]
     hr12 = Hash[equipment_join_2012.map { |x| [x[:county_city_key], x] }]
     fix_keys = Hash[Errata.from_2016_to_2012]
-    rjoined = hr16
-      .reject { |key, obj| obj[:returns][0] == 0 }
+    rjoined = filter_joined(hr16)
       .map do |key, obj|
         ret = obj.dup
         ret[:prev] = (hr12[key] || hr12[fix_keys[key]]) rescue binding.pry

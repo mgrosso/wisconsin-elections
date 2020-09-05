@@ -25,6 +25,14 @@ module ParseEquipment
     m[1].upcase.strip
   end
 
+  def extract_scanner(row)
+    row[2].strip
+  end
+
+  def extract_voting_machine(row)
+    row[3].strip
+  end
+
   def unique_counties
     data_rows.map { |row| extract_county row }.sort.uniq
   end
@@ -51,6 +59,8 @@ module ParseEquipment
     obj = {
       county: extract_county(row),
       city: extract_city(row),
+      scanner: extract_scanner(row),
+      voting_machine: extract_voting_machine(row),
       raw: row
     }
     obj[:county_city_key] = "#{obj[:county]}___#{obj[:city]}"

@@ -4,13 +4,16 @@ class ExportCsv
     def joined_shallow_data
       JoinEquipmentResults.join_2012_to_2016
         .map do |key, obj|
-          Hash[
+          ret = Hash[
             obj
             .slice(:county_city_key)
             .merge!(obj[:party_counts])
             .merge!(obj[:prev][:party_counts])
             .map { |k, v| [k.to_sym, v] }
           ]
+          ret[:scanner] = obj[:equipment][:scanner]
+          ret[:voting_machine] = obj[:equipment][:voting_machine]
+          ret
         end
     end
 
