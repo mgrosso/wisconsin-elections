@@ -14,8 +14,7 @@ Wisconsin reports results at the level of groups of wards within a municipality 
 
 This analysis was conducted at the municipality-county level and used the size of the 2016 total votes as a proxy for population; the log10 of that total vote count was used as a predictive variable in a regression analysis where the dependent variable was the increase in percentage of votes for Trump in 2016 vs Romney in 2012. The results (intercept=27.787, slope=-7.415, p < 0.001, F=833.45) were strongly significant. After accounting for this effect, there was no remaining support for the hypothesis that Edge voting machines favored one candidate in 2016 but not 2012.
 
-This analysis does not disprove allegations of election impropriety. The overall margin of victory Trump had over Clinton in 2016 in Wisconsin was 22,748 votes out of nearly 3 million cast while results were reported at the level of almost 4,000 municipality, county, and ward combinations. This analysis was not sensitive enough to detect vote flipping on that scale.
-
+TODO: describe the boundaries on how badly a voting machine could flip votes before this analysis detected it.
 
 ## 2. Previous Work
 
@@ -61,14 +60,23 @@ Coefficients:
 
 ```
 
-### TODO: add stats for zero effect of Edge after backing out log10_totalvote16 impact
+### TODO: add stats for zero effect of Edge after backing out `log10_totalvote16` impact
+
+### Caveats
+
+  1. Turnout impacts total votes and could be a confounder, however turnout differences from one election to another are measured in single or low double digits of percentage change, while municipality populations (and thus total votes) vary over several orders of magnitude.
+  2. The impact of municipality total votes on preferences for Trump over Clinton versus Romney over Obama may not be stable in future elections.
 
 ## 4. Conclusion, 
 
-In Wisconsin in 2016 smaller towns voted for Trump more than they voted for Romney. It also happened to be the case that Edge voting machines were somewhat more likely to be in use in those smaller towns. This created the appearance of an Edge related large pro-Trump effect that went away once the town size was accounted for first.
+In Wisconsin, the log base 10 of total municipality votes provided a solid proxy for demographic's that favored Trump in 2016 versus Romney in 2012. Since this variable can be measured without joining
+
+In Wisconsin in 2016 smaller municipality voted for Trump over Clinton more than they voted for Romney over Obama. The distribution of municipality size among those with Edge voting machines tilted towards smaller municipalities. This created the appearance of an Edge related large pro-Trump effect that went away once the municipality size was accounted for first.
 This analysis does not disprove allegations of election impropriety; it merely finds that any vote flipping was not large enough to be detected simply by analyzing this particular set of public data. The overall margin of victory Trump had over Clinton in 2016 in Wisconsin was 22,748 votes out of nearly 3 million cast while results were reported at the level of almost 4,000 municipality, county, and ward combinations. This analysis was not sensitive enough to detect vote flipping on that scale.
 
 ## 5. Future Work
 
-The difficulty of finding vote flipping with just aggregate statistical data only emphasizes the importance of using an election technology that can be audited, namely [hand marked paper ballots]() with carefully documented [chains of custody]() and [risk limiting audits](). Putting those methods into effect universally would reduce the need for work like this to painstakingly search for election fraud using low resolution tools. Since [US election security](https://www.americanprogress.org/issues/democracy/reports/2018/02/12/446336/election-security-50-states/)  [remains](https://www.npr.org/2020/01/29/800131854/1-simple-step-could-help-election-security-governments-arent-doing-it) [highly](https://www.govtech.com/security/Election-Security-Scandals-in-Georgia-Heighten-2020-Concerns.html) [vulnerable](https://www.washingtonpost.com/investigations/los-angeles-countys-new-voting-machines-hailed-for-accessibility-dogged-by-security-concerns/2020/03/02/fabe5108-5768-11ea-ab68-101ecfec2532_story.html) after the 2016 election, it will be advantageous to extend this kind of effort to other swing states in order to at least detect high magnitude ham-fisted vote flipping. In addition, more sophisticated statistical analysis could be applied to provide an indication of how many votes could have been flipped by any particular kind of voting machine or county administrations without leaving a statistically significant trail.
+An obvious extension of this work would be to analyze the 2018 midterms and 2020 presidential elections, as well as to anlyze other states' results.
+
+The difficulty of finding vote flipping with just aggregate statistical data only emphasizes the importance of using an election technology that can be audited, namely [hand marked paper ballots]() with carefully documented [chains of custody]() and [risk limiting audits](https://www.stat.berkeley.edu/~stark/Preprints/gentle12.pdf). Putting those methods into effect universally would reduce the need for work like this to painstakingly search for election fraud using low resolution tools. Since [US election security](https://www.americanprogress.org/issues/democracy/reports/2018/02/12/446336/election-security-50-states/)  [remains](https://www.npr.org/2020/01/29/800131854/1-simple-step-could-help-election-security-governments-arent-doing-it) [highly](https://www.govtech.com/security/Election-Security-Scandals-in-Georgia-Heighten-2020-Concerns.html) [vulnerable](https://www.washingtonpost.com/investigations/los-angeles-countys-new-voting-machines-hailed-for-accessibility-dogged-by-security-concerns/2020/03/02/fabe5108-5768-11ea-ab68-101ecfec2532_story.html) after the 2016 election, it will be advantageous to extend this kind of effort to other swing states in order to at least detect high magnitude ham-fisted vote flipping. In addition, more sophisticated statistical analysis could be applied to provide an indication of how many votes could have been flipped by any particular kind of voting machine or county administrations without leaving a statistically significant trail.
 Additionally, in 2020, concerns about the Sars-Cov-2 respiratory pandemic have [dramatically increased vote by mail percentages in primaries](https://fivethirtyeight.com/features/there-have-been-38-statewide-elections-during-the-pandemic-heres-how-they-went/). This analysis didn't break out scanners versus ballot marking devices, but in analyzing the 2020 election for statistical indications of vote flipping it will be important to distinguish between the voting equipment used by in-person voters versus the optical scanners used for mail-in ballots.
