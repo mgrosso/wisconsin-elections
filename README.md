@@ -32,7 +32,7 @@ The Ruby programming language is used to retrieve and process the data. The stat
 
 A first look at relative support for Trump vs Romney by voting machine is very concerning, especially with respect to Edge voting machines which are used by a large fraction of Wisconsin voters:
 
-![By voting machine](https://github.com/mgrosso/wisconsin-elections/outputs/all_machines-by-pct_delta-boxplot.png)
+![By voting machine](https://github.com/mgrosso/wisconsin-elections/outputs/all-machines-by-pct_delta-boxplot.png)
 
 Voting machines are not randomly distributed however; so it seems natural to look for demographic variables that could explain the differences. Age, gender, race, class, education, income, and population density are commonly used, but all of those require matching to US Census data. Even better indicators for Trump's support vs Romney's would be [job loss, opiate addiction, and suicide](https://smmonnat.expressions.syr.edu/wp-content/uploads/ElectionBrief_DeathsofDespair.pdf), but this requires CDC data matching. If the voting data itself can be shown to contain a variable that accounts for a substantial portion Trump support it would save a great deal of effort when scaling this type of analysis to multiple states and help to prioritize more fine grained data matching.
 
