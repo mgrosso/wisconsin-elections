@@ -46,17 +46,17 @@ The number of total votes in the municipality is strongly negatively correlated 
 
 The raw residuals showed no indicators of bad fit:
 
-![The raw residuals showed no indicators of bad fit](https://github.com/mgrosso/wisconsin-elections/outputs/municipality-vs-trump-edge-residuals.png)
+![The raw residuals showed no indicators of bad fit](/outputs/municipality-vs-trump-edge-residuals.png)
 
-![The residuals split by whether Edge was used](https://github.com/mgrosso/wisconsin-elections/outputs/municipality-vs-trump-edge-residuals-by-edge.png)
+![The residuals split by whether Edge was used](/outputs/municipality-vs-trump-edge-residuals-by-edge.png)
 
 After subtracting the municipality size effect, no pro Trump voting machine effect remained for Edge machines:
 
-![The residuals if anything went somewhat the other way](https://github.com/mgrosso/wisconsin-elections/outputs/municipality-vs-trump-edge-residuals-by-edge-boxplot.png)
+![The residuals if anything went somewhat the other way](/outputs/municipality-vs-trump-edge-residuals-by-edge-boxplot.png)
 
 Looking at all voting machines again after subtracting the municipality size effect, the only outliers are the two types of machines deployed in just one county:
 
-![all-machines-by-residual-boxplot.png](https://github.com/mgrosso/wisconsin-elections/outputs/all-machines-by-residual-boxplot.png)
+![all-machines-by-residual-boxplot.png](/outputs/all-machines-by-residual-boxplot.png)
 
 ### details of linear regression from `log10_totalvote16` onto `pct_delta`
 
