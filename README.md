@@ -28,6 +28,8 @@ A significant amount of work is devoted to joining the 2012 and 2016 results as 
 
 The Ruby programming language is used to retrieve and process the data. The statistical analysis is performed with R. All source code, retrieved data, intermediate processing files, and final result files are available in the git repo [https://github.com/mgrosso/wisconsin-elections/](https://github.com/mgrosso/wisconsin-elections/).
 
+2012 and 2016 data is joined at the municipality-count level and written to a CSV file. Duplicate this with `rake write_csv` which will update `outputs/equipment_results_2012_2016.csv`.  The code implementing this can be found in `lib/*.rb` and `rakelib/*`. R is used for exploratory analysis, regression, and graphing. To duplicate that work run `R --no-save <r-source-and-history/analysis.r`. Both of these steps will overwrite files saved to the `outputs/` directory of the git repository. Any differences in the CSV can be inspected with `git diff`; before and after differences in `output/*.png` can be inspected visually.
+
 ## 4. Results
 
 A first look at relative support for Trump vs Romney by voting machine is very concerning, especially with respect to Edge voting machines which are used by a large fraction of Wisconsin voters:
